@@ -9,10 +9,10 @@ This project assumes you have:
 ```bash
 .
 ├── README.md                   <-- This instructions file
-├── graphcmdb                   <-- Source code for a lambda function
+├── graphcmdb                   <-- Source code \for a lambda \function
 │   ├── __init__.py
-│   ├── app.py                  <-- Lambda function code
-│   ├── requirements.txt        <-- Python modules required by function
+│   ├── app.py                  <-- Lambda \function code
+│   ├── requirements.txt        <-- Python modules required by \function
 ├── template.yaml               <-- SAM Template
 ├── testevent.json              <-- Example invokingEvent event
 └── testeventbody.json          <-- Extracted AWS Config payload sample
