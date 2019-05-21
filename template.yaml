@@ -1,0 +1,58 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  AWS Config -> Amazon Neptune (GraphCMDB)
+
+Globals:
+  Function:
+    Timeout: 10
+
+Resources:
+  GraphCMDBPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !GetAtt GraphCMDBFunction.Arn
+      Principal: config.amazonaws.com
+    DependsOn: GraphCMDBFunction
+
+  GraphCMDBFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: 'Inserts AWS Config changes into Amazon Neptune'
+      CodeUri: graphcmdb/
+      Handler: app.lambda_handler
+      Runtime: python3.7
+      Policies:
+        - AWSLambdaVPCAccessExecutionRole
+        - AWSLambdaBasicExecutionRole
+        - AWSConfigRulesExecutionRole
+      VpcConfig:
+        SubnetIds:
+          - 'subnet-1a483346'
+          - 'subnet-e86be9d6'
+          - 'subnet-26353b6c'
+          - 'subnet-5c152553'
+        SecurityGroupIds:
+          - 'sg-08dd41fdb983dca49'
+      Environment:
+          Variables:
+            NEPTUNE_ENDPOINT: 'ws://graphdemo.ccfxddbosjfb.us-east-1.neptune.amazonaws.com:8182/gremlin'
+
+  CMDBConfigRule:
+    Type: AWS::Config::ConfigRule
+    Properties:
+      ConfigRuleName: cmdbconfigrule
+      Description: 'Catch all config events for the CMDB'
+      Source:
+          Owner: CUSTOM_LAMBDA
+          SourceIdentifier: !GetAtt GraphCMDBFunction.Arn
+          SourceDetails:
+            -
+              EventSource: aws.config
+              MessageType: ConfigurationItemChangeNotification
+            -
+              EventSource: aws.config
+              MessageType: OversizedConfigurationItemChangeNotification
+      InputParameters: "{}"
+    DependsOn: GraphCMDBPermission
