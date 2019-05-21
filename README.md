@@ -5,7 +5,7 @@ This is a sample template for AWS - Below is a brief explanation of what we have
 ```bash
 .
 ├── README.md                   <-- This instructions file
-├── graphcmdb                 <-- Source code for a lambda function
+├── graphcmdb                   <-- Source code for a lambda function
 │   ├── __init__.py
 │   ├── app.py                  <-- Lambda function code
 │   ├── requirements.txt        <-- Python modules required by function
@@ -24,6 +24,8 @@ This is a sample template for AWS - Below is a brief explanation of what we have
 ## Setup process
 
 ### Local development
+
+`Note`: I find it better if you work with an IDE such as PyCharm and leverage the AWS Toolkit, it just makes things so much easier!
 
 **Invoking function locally using a local sample payload**
 
