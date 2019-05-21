@@ -1,4 +1,4 @@
-# AWS
+# GraphCMDB - Demo the integration of AWS Config with Amazon Neptune
 
 This is a sample template for AWS - Below is a brief explanation of what we have generated for you:
 
