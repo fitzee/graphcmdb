@@ -1,6 +1,10 @@
 # GraphCMDB - Demo the integration of AWS Config with Amazon Neptune
 
-This is a sample template for AWS - Below is a brief explanation of what we have generated for you:
+This project assumes you have:
+1. An AWS account with a VPC and subnets created
+2. A Neptune instance configured to reside in that VPC and those subnets
+3. AWS Config enabled within the console, recording all configuration changes
+4. An EC2 instance provisioned as a bastion host in your VPC's public subnet
 
 ```bash
 .
